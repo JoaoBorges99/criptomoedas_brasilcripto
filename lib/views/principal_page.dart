@@ -1,3 +1,4 @@
+import 'package:criptomoedas_brasilcripto/views/fav_page.dart';
 import 'package:flutter/material.dart';
 
 class PrincipalPage extends StatefulWidget {
@@ -7,47 +8,81 @@ class PrincipalPage extends StatefulWidget {
   State<PrincipalPage> createState() => _PrincipalPageState();
 }
 
-class _PrincipalPageState extends State<PrincipalPage> {
+class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateMixin {
   
   int indexAtual = 0;
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text('Hello World!'),
-              Text('Welcome to the app!'),
-            ],
-          ),
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Hello World!'),
+                  Text('These are the treanding cryptocurrencies!'),
+                ],
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Search brand new cryptocurrencies!'),
+                ],
+              ),
+            ),
+            FavoritesPage(),
+          ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index) {        
-          indexAtual = index;
-          setState(() {});
-        },
-        currentIndex: indexAtual,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_fire_department_outlined),
-            label: 'Trending',
-            activeIcon: Icon(Icons.local_fire_department),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF1C1C1E), // Cor de fundo
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+        ),
+        child: TabBar(
+          splashBorderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.star_border_purple500),
-            activeIcon: Icon(Icons.star),
-            label: 'Favorites',
-          ),
-        ],
+          controller: _tabController,
+          onTap: (int index) {        
+            indexAtual = index;
+            setState(() {});
+          },
+          // currentIndex: indexAtual,
+          tabs: [
+            Tab(
+              icon: Icon(Icons.local_fire_department_outlined),
+              child: Text('Trending'),
+            ),
+            Tab(
+              icon: Icon(Icons.search),
+              child: Text('Search'),
+            ),
+            Tab(
+              icon: Icon(Icons.star_border_purple500),
+              child: Text('Favorites'),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 }
