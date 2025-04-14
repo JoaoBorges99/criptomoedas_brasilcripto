@@ -49,7 +49,7 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF1C1C1E), // Cor de fundo
+          color: Color(0xFF1C1C1E),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -61,11 +61,6 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
             topRight: Radius.circular(20),
           ),
           controller: _tabController,
-          onTap: (int index) {        
-            indexAtual = index;
-            setState(() {});
-          },
-          // currentIndex: indexAtual,
           tabs: [
             Tab(
               icon: Icon(Icons.local_fire_department_outlined),
