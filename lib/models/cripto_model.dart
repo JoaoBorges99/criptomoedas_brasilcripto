@@ -29,7 +29,7 @@ abstract class CriptoCurrencyBase with Store {
     id = json['id'] ?? '';
     name = json['name'] ?? '';
     symbol = json['symbol'] ?? '';
-    price = json['current_price'].toString();
+    price = json['priceUsd'].toString();
   }
 
 }

@@ -18,7 +18,7 @@ abstract class MainStoreBase with Store {
   ]);
 
   @observable
-  ObservableList<CriptoCurrency> criptoCurrencySearchList = ObservableList<CriptoCurrency>();
+  ObservableList<CriptoCurrency> criptoCurrencySearchList = ObservableList<CriptoCurrency>.of([]);
 
   @computed
   ObservableList<CriptoCurrency> get favListItens => criptoCurrencyTrendList.where((element) => element.favorito == true).toList().asObservable();
@@ -39,10 +39,12 @@ abstract class MainStoreBase with Store {
     }
 
   }
-
+  
   Future<void> getAllTrendCripto ({required ObservableList<CriptoCurrency> newList}) async {
-    List dados = await Settings.getRequest(editUrl: '?limit=13');
-    newList = dados.map((e)=> CriptoCurrency.fromJson(e)).toList().asObservable();
+    newList.clear();
+    
+    List dados = await Settings.getRequest(editUrl: '&limit=13');
+    newList.addAll(dados.map((e)=> CriptoCurrency.fromJson(e)).toList().asObservable());
 
     validarItensFavoritos(list: newList);
 

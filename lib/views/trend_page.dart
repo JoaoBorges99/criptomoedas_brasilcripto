@@ -18,11 +18,18 @@ class _TrendPageState extends State<TrendPage>     with AutomaticKeepAliveClient
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    widget.mainController.getAllTrendCripto(newList: widget.mainController.criptoCurrencyTrendList);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          scrollDirection: Axis.vertical,
           children: [
             Container(
               height: 200,
@@ -53,22 +60,24 @@ class _TrendPageState extends State<TrendPage>     with AutomaticKeepAliveClient
               ),
             ),
             Card(
-              child: ExpansionTile(
-                initiallyExpanded: true,
-                leading: Icon(Icons.local_fire_department, color: Colors.deepOrange,),
-                title: Text("TOP 10 Trending Criptos"),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+              child: Observer(
+                builder: (_) => ExpansionTile(
+                  initiallyExpanded: true,
+                  leading: Icon(Icons.local_fire_department, color: Colors.deepOrange,),
+                  title: Text("TOP 10 Trending Criptos"),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  trailing: SizedBox(),
+                  children: widget.mainController.criptoCurrencyTrendList.map((e){
+                    return Observer(
+                      builder: (_) => PersonWidgets.criptoCard(
+                        cripto: e,
+                        onTap: () {},
+                      ),
+                    );
+                  }).toList(),
                 ),
-                trailing: SizedBox(),
-                children: widget.mainController.criptoCurrencyTrendList.map((e){
-                  return Observer(
-                    builder: (_) => PersonWidgets.criptoCard(
-                      cripto: e,
-                      onTap: () {},
-                    ),
-                  );
-                }).toList(),
               ),
             )
           ],
