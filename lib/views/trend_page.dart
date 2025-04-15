@@ -2,6 +2,7 @@ import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/models/cripto_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TrendPage extends StatefulWidget {
   const TrendPage({super.key});
@@ -64,7 +65,12 @@ class _TrendPageState extends State<TrendPage> {
                 ),
                 trailing: SizedBox(),
                 children: teste.map((e){
-                  return PersonWidgets.criptoCard(cripto: e);
+                  return Observer(
+                    builder: (_) => PersonWidgets.criptoCard(
+                      cripto: e,
+                      onTap: () {},
+                    ),
+                  );
                 }).toList(),
               ),
             )

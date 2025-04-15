@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class PersonWidgets {
 
-  static Widget criptoCard ({required CriptoCurrency cripto}) {
+  static Widget criptoCard ({required CriptoCurrency cripto, required void Function()? onTap}) {
     return Card(
       child: ListTile(
         leading: Image.network(
@@ -21,13 +21,14 @@ class PersonWidgets {
         subtitle: Text(cripto.price.toString()),
         trailing: IconButton(
           tooltip: 'Adicionar aos favoritos',
-          onPressed: (){}, 
+          onPressed: cripto.adicionarRemoverFavorito, 
           icon: Visibility(
             visible: cripto.favorito,
             replacement: Icon(Icons.star_border_outlined,),
             child: Icon(Icons.star, color: Colors.yellow,),
           ),
         ),
+        onTap: onTap,
       ),
     );
   }
