@@ -50,5 +50,10 @@ abstract class MainStoreBase with Store {
 
   }
 
+  void limparItensFav(){
+    for (CriptoCurrency item in favListItens){
+      item.favorito = false;
+    }
+  }
 
 }
