@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.dark,
       home: PrincipalPage(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,

@@ -71,16 +71,18 @@ class _TrendPageState extends State<TrendPage>     with AutomaticKeepAliveClient
                 children: [
                   SizedBox(
                     height: 300,
-                    child: ListView.builder(
-                      itemCount: widget.mainController.criptoCurrencyTrendList.length,
-                      itemBuilder: (context, index) {
-                        return Observer(
-                          builder: (_) => PersonWidgets.criptoCard(
-                            cripto: widget.mainController.criptoCurrencyTrendList[index],
-                            onTap: () {},
-                          ),
-                        );
-                      },
+                    child: Observer(
+                      builder: (_) => ListView.builder(
+                        itemCount: widget.mainController.criptoCurrencyTrendList.length,
+                        itemBuilder: (context, index) {
+                          return Observer(
+                            builder: (_) => PersonWidgets.criptoCard(
+                              cripto: widget.mainController.criptoCurrencyTrendList[index],
+                              onTap: () {},
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   )
                 ]
