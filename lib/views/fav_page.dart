@@ -1,7 +1,11 @@
+import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({super.key});
+  final MainStore mainController;
+
+  const FavoritesPage({super.key, required this.mainController});
 
   @override
   State<FavoritesPage> createState() => _FavoritesPageState();
@@ -11,12 +15,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favorites'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text('No favorites yet!'),
+      body: Center(
+        child: Observer(
+          builder: (_) => Column(
+            children: widget.mainController.favItens.map( (e) =>
+              Text(e.id),
+            ).toList(),
+          ),
+        ),
       ),
     );
   }

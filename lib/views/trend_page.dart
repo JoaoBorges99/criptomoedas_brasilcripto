@@ -1,28 +1,25 @@
 import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
-import 'package:criptomoedas_brasilcripto/models/cripto_model.dart';
+import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TrendPage extends StatefulWidget {
-  const TrendPage({super.key});
+  final MainStore mainController;
+  const TrendPage({super.key, required this.mainController});
 
   @override
   State<TrendPage> createState() => _TrendPageState();
 }
 
-class _TrendPageState extends State<TrendPage> {
-
-  List<CriptoCurrency> teste = [
-    CriptoCurrency(id: '1', name: 'Bitcoin', symbol: 'BTC', price: '50000', favorito: true),
-    CriptoCurrency(id: '2', name: 'Ethereum', symbol: 'ETH', price: '4000'),
-    CriptoCurrency(id: '3', name: 'Ripple', symbol: 'XRP', price: '1'),
-    CriptoCurrency(id: '4', name: 'Litecoin', symbol: 'LTC', price: '200'),
-  ];
-
+class _TrendPageState extends State<TrendPage>     with AutomaticKeepAliveClientMixin {
+  
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -64,7 +61,7 @@ class _TrendPageState extends State<TrendPage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 trailing: SizedBox(),
-                children: teste.map((e){
+                children: widget.mainController.criptoCurrencyTrendList.map((e){
                   return Observer(
                     builder: (_) => PersonWidgets.criptoCard(
                       cripto: e,

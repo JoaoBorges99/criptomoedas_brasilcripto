@@ -1,3 +1,4 @@
+import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
 import 'package:criptomoedas_brasilcripto/views/fav_page.dart';
 import 'package:criptomoedas_brasilcripto/views/search_page.dart';
 import 'package:criptomoedas_brasilcripto/views/trend_page.dart';
@@ -14,6 +15,7 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
   
   int indexAtual = 0;
   TabController? _tabController;
+  MainStore mainController = MainStore();
 
   @override
   void initState() {
@@ -28,9 +30,9 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
         child: TabBarView(
           controller: _tabController,
           children: [
-            TrendPage(),
+            TrendPage(mainController: mainController,),
             SearchPage(),
-            FavoritesPage(),
+            FavoritesPage(mainController: mainController,),
           ],
         ),
       ),
