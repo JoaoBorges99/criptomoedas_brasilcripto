@@ -60,24 +60,31 @@ class _TrendPageState extends State<TrendPage>     with AutomaticKeepAliveClient
               ),
             ),
             Card(
-              child: Observer(
-                builder: (_) => ExpansionTile(
-                  initiallyExpanded: true,
-                  leading: Icon(Icons.local_fire_department, color: Colors.deepOrange,),
-                  title: Text("TOP 10 Trending Criptos"),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  trailing: SizedBox(),
-                  children: widget.mainController.criptoCurrencyTrendList.map((e){
-                    return Observer(
-                      builder: (_) => PersonWidgets.criptoCard(
-                        cripto: e,
-                        onTap: () {},
-                      ),
-                    );
-                  }).toList(),
+              child: ExpansionTile(
+                initiallyExpanded: true,
+                leading: Icon(Icons.local_fire_department, color: Colors.deepOrange,),
+                title: Text("TOP 10 Trending Criptos"),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                trailing: SizedBox(),
+                children: [
+                  SizedBox(
+                    height: 300,
+                    child: ListView.builder(
+                      itemCount: widget.mainController.criptoCurrencyTrendList.length,
+                      itemBuilder: (context, index) {
+                        return Observer(
+                          builder: (_) => PersonWidgets.criptoCard(
+                            cripto: widget.mainController.criptoCurrencyTrendList[index],
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ]
+              
               ),
             )
           ],

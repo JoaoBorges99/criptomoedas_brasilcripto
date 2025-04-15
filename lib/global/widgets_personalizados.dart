@@ -7,7 +7,8 @@ class PersonWidgets {
     return Card(
       child: ListTile(
         leading: Image.network(
-          'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+          // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+          'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${cripto.id.toLowerCase()}.png',
           errorBuilder: (context, error, stackTrace) {
             return Image.asset(
               'assets/cripto.png',
