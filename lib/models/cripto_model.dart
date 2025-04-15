@@ -25,4 +25,11 @@ abstract class CriptoCurrencyBase with Store {
     favorito = !favorito;
   }
 
+  CriptoCurrencyBase.fromJson(Map<String,dynamic> json) {
+    id = json['id'] ?? '';
+    name = json['name'] ?? '';
+    symbol = json['symbol'] ?? '';
+    price = json['current_price'].toString();
+  }
+
 }

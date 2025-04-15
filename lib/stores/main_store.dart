@@ -1,3 +1,4 @@
+import 'package:criptomoedas_brasilcripto/global/settings.dart';
 import 'package:criptomoedas_brasilcripto/models/cripto_model.dart';
 import 'package:mobx/mobx.dart';
 part 'main_store.g.dart';
@@ -20,18 +21,32 @@ abstract class MainStoreBase with Store {
   ObservableList<CriptoCurrency> criptoCurrencySearchList = ObservableList<CriptoCurrency>();
 
   @computed
-  ObservableList<CriptoCurrency> get favItens {
-    return criptoCurrencyTrendList.where((element) => element.favorito == true).toList().asObservable();
-  }
+  ObservableList<CriptoCurrency> get favListItens => criptoCurrencyTrendList.where((element) => element.favorito == true).toList().asObservable();
 
   @computed
   ObservableList<CriptoCurrency> get criptoPesquisada => criptoCurrencySearchList.where(
-    (item){
-      return item.name.toLowerCase().contains(valorPesquisado.toLowerCase()) || item.symbol.toLowerCase().contains(valorPesquisado.toLowerCase()) ||item.id.toLowerCase().contains(valorPesquisado.toLowerCase());
-    }
+    (item)=> item.name.toLowerCase().contains(valorPesquisado.toLowerCase()) || item.symbol.toLowerCase().contains(valorPesquisado.toLowerCase()) ||item.id.toLowerCase().contains(valorPesquisado.toLowerCase())
   ).toList().asObservable();
 
-  bool validarFavorito ({required String id}) => favItens.any((iten) => iten.id == id);
+  bool validarFavorito ({required String id}) => favListItens.any((iten) => iten.id == id);
+
+  void validarItensFavoritos ({required ObservableList<CriptoCurrency> list}) {
+    for( CriptoCurrency item in list){
+      final bool isItemFav = favListItens.any((e) => e.id == item.id);
+      if(isItemFav){
+        item.favorito = true;
+      }
+    }
+
+  }
+
+  Future<void> getAllTrendCripto ({required ObservableList<CriptoCurrency> newList}) async {
+    List dados = await Settings.getRequest(editUrl: '?limit=13');
+    newList = dados.map((e)=> CriptoCurrency.fromJson(e)).toList().asObservable();
+
+    validarItensFavoritos(list: newList);
+
+  }
 
 
 }

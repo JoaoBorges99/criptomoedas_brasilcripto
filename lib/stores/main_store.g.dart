@@ -9,12 +9,12 @@ part of 'main_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$MainStore on MainStoreBase, Store {
-  Computed<ObservableList<CriptoCurrency>>? _$favItensComputed;
+  Computed<ObservableList<CriptoCurrency>>? _$favListItensComputed;
 
   @override
-  ObservableList<CriptoCurrency> get favItens => (_$favItensComputed ??=
-          Computed<ObservableList<CriptoCurrency>>(() => super.favItens,
-              name: 'MainStoreBase.favItens'))
+  ObservableList<CriptoCurrency> get favListItens => (_$favListItensComputed ??=
+          Computed<ObservableList<CriptoCurrency>>(() => super.favListItens,
+              name: 'MainStoreBase.favListItens'))
       .value;
   Computed<ObservableList<CriptoCurrency>>? _$criptoPesquisadaComputed;
 
@@ -81,7 +81,7 @@ mixin _$MainStore on MainStoreBase, Store {
 valorPesquisado: ${valorPesquisado},
 criptoCurrencyTrendList: ${criptoCurrencyTrendList},
 criptoCurrencySearchList: ${criptoCurrencySearchList},
-favItens: ${favItens},
+favListItens: ${favListItens},
 criptoPesquisada: ${criptoPesquisada}
     ''';
   }

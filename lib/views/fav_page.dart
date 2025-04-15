@@ -1,3 +1,4 @@
+import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,8 +19,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
       body: Center(
         child: Observer(
           builder: (_) => Column(
-            children: widget.mainController.favItens.map( (e) =>
-              Text(e.id),
+            children: widget.mainController.favListItens.map( (e) =>
+              PersonWidgets.criptoCard(
+                cripto: e,
+                onTap: () {},
+              ),
             ).toList(),
           ),
         ),
