@@ -1,4 +1,6 @@
 import 'package:criptomoedas_brasilcripto/views/fav_page.dart';
+import 'package:criptomoedas_brasilcripto/views/search_page.dart';
+import 'package:criptomoedas_brasilcripto/views/trend_page.dart';
 import 'package:flutter/material.dart';
 
 class PrincipalPage extends StatefulWidget {
@@ -26,23 +28,8 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
         child: TabBarView(
           controller: _tabController,
           children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Hello World!'),
-                  Text('These are the treanding cryptocurrencies!'),
-                ],
-              ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Search brand new cryptocurrencies!'),
-                ],
-              ),
-            ),
+            TrendPage(),
+            SearchPage(),
             FavoritesPage(),
           ],
         ),

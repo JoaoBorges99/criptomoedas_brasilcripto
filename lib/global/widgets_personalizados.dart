@@ -7,7 +7,13 @@ class PersonWidgets {
     return Card(
       child: ListTile(
         leading: Image.network(
-          'https://cryptologos.cc/logos/${cripto.symbol.toLowerCase()}-logo.png?v=022',
+          'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+              'assets/cripto.png',
+              fit: BoxFit.cover,
+            );
+          },
           width: 50,
           height: 50,
         ),
@@ -16,7 +22,11 @@ class PersonWidgets {
         trailing: IconButton(
           tooltip: 'Adicionar aos favoritos',
           onPressed: (){}, 
-          icon: Icon(Icons.star_border_outlined),
+          icon: Visibility(
+            visible: cripto.favorito,
+            replacement: Icon(Icons.star_border_outlined,),
+            child: Icon(Icons.star, color: Colors.yellow,),
+          ),
         ),
       ),
     );
