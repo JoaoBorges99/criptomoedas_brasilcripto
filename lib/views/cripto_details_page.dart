@@ -1,3 +1,4 @@
+import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/models/cripto_model.dart';
 import 'package:criptomoedas_brasilcripto/stores/details_store.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,9 @@ class _CriptoDetailsPageState extends State<CriptoDetailsPage> {
       ),
       body: Column(
         children: [
-
-          ListTile(
+          PersonWidgets.buildCryptoDetailsHeader(
+            cripto: widget.cripto, 
+            imageUrl:'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${widget.cripto.id.toLowerCase()}.png',
           ),
 
           Observer(
