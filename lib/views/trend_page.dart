@@ -22,6 +22,15 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          tooltip: 'Recarregar',
+          onPressed: () async {
+            widget.mainController.getAllTrendCripto(newList: widget.mainController.criptoCurrencyTrendList);
+          }, 
+          icon: Icon(Icons.replay)
+        ),
+      ),
       body: SafeArea(
         child: Observer(
           builder: (_) => Visibility(
