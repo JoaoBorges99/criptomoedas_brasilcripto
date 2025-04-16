@@ -33,7 +33,7 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
               ),
               child: Center(
                 child: Text(
-                  'No trending criptos found!',
+                  'Não há nenhuma cripto em alta no momento!',
                   style: TextStyle(fontSize: 16),
                 ),
               ),
@@ -105,7 +105,7 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                                           ),
                                         ),
                                         Text(
-                                          "Hightest Price",
+                                          "Maior preço",
                                           style: TextStyle(
                                             fontSize: 32,
                                             color: Colors.white,
@@ -128,7 +128,7 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                   child: ExpansionTile(
                     initiallyExpanded: true,
                     leading: Icon(Icons.local_fire_department, color: Colors.deepOrange,),
-                    title: Text("TOP 10 Trending Criptos"),
+                    title: Text("TOP 10 Criptos"),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),

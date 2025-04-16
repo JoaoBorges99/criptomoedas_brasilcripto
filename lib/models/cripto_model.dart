@@ -40,17 +40,17 @@ abstract class CriptoCurrencyBase with Store {
   }
 
   CriptoCurrencyBase.fromJson(Map<String,dynamic> json) {
-    id =  json['id'];
-    rank =  json['rank'];
-    symbol =  json['symbol'];
-    name =  json['name'];
-    supply =  json['supply'];
-    maxSupply =  json['maxSupply'];
-    marketCapUsd =  json['marketCapUsd'];
-    volumeUsd24Hr =  json['volumeUsd24Hr'];
-    price =  json['priceUsd'];
-    changePercent24Hr =  json['changePercent24Hr'];
-    vwap24Hr =  json['vwap24Hr'];
+    id =  json['id'] ?? '';
+    rank =  json['rank'] ?? '';
+    symbol =  json['symbol'] ?? '';
+    name =  json['name'] ?? '';
+    supply =  json['supply'] ?? '';
+    maxSupply =  json['maxSupply'] ?? '';
+    marketCapUsd =  json['marketCapUsd'] ?? '';
+    volumeUsd24Hr =  json['volumeUsd24Hr'] ?? '';
+    price =  json['priceUsd'] ?? '';
+    changePercent24Hr =  json['changePercent24Hr'] ?? '';
+    vwap24Hr =  json['vwap24Hr'] ?? '';
     favorito = json['favorito'] ?? false;
   }
 

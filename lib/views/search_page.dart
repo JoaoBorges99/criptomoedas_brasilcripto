@@ -37,7 +37,7 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
                     child: TextFormField(
                       decoration: InputDecoration(
                         filled: true,
-                        labelText: 'Search',
+                        labelText: 'Pesquisar',
                         prefixIcon: Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
                     visible: widget.mainController.criptoPesquisada.isNotEmpty,
                     replacement: Center(
                       child: Text(
-                        'No criptos found!',
+                        'Não foi possivel encontar suas criptos!',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),

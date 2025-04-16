@@ -56,15 +56,15 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
           tabs: [
             Tab(
               icon: Icon(Icons.local_fire_department_outlined),
-              child: Text('Trending'),
+              child: Text('Em alta'),
             ),
             Tab(
               icon: Icon(Icons.search),
-              child: Text('Search'),
+              child: Text('Pesquisar'),
             ),
             Tab(
               icon: Icon(Icons.star_border_purple500),
-              child: Text('Favorites'),
+              child: Text('Favoritos'),
             ),
           ],
         ),
