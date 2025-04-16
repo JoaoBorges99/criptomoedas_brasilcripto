@@ -1,6 +1,6 @@
 import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
-import 'package:criptomoedas_brasilcripto/views/cripto_details.dart';
+import 'package:criptomoedas_brasilcripto/views/cripto_details_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -147,7 +147,7 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => CriptoDetails(cripto: e,),
+                                        builder: (context) => CriptoDetailsPage(cripto: e,),
                                       ),
                                     );
                                   },

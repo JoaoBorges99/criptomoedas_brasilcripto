@@ -7,9 +7,16 @@ class Settings {
   static final String urlApi = dotenv.get('URL_API');
   static final String apiKey = dotenv.get('API_KEY');
 
-  static Future<List> getRequest ({String editUrl = ''}) async {
+  static Future<List> getRequest ({String editUrl = '', bool novaUrl = false}) async {
     try {
-      final Uri url = Uri.parse(urlApi+apiKey+editUrl);
+      late Uri url;
+      
+      if(novaUrl){
+        url = Uri.parse(editUrl);
+      }else{
+        url = Uri.parse(urlApi+apiKey+editUrl);
+      }
+
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
