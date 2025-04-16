@@ -13,16 +13,23 @@ abstract class DetailStoreBase with Store{
   @observable
   List<CriptoDetails> criptoPriceList = [];
 
+  // Função para buscar o histórico de preços de uma criptomoeda específica
   Future<void> getCriptoPrice ({required CriptoCurrency cripto}) async {
-    try{
+    try {
       isLoading = true;
 
-      List dados = await Settings.getRequest(editUrl: '${Settings.urlApi}/${cripto.id}/history${Settings.apiKey}&interval=m30', novaUrl: true);
+      // Faz uma requisição para obter o histórico de preços da criptomoeda
+      List dados = await Settings.getRequest(
+        editUrl: '${Settings.urlApi}/${cripto.id}/history${Settings.apiKey}&interval=m30', 
+        novaUrl: true
+      );
+
+      // Converte os dados recebidos em objetos do tipo CriptoDetails e adiciona à lista
       criptoPriceList.addAll(dados.map((e) => CriptoDetails.fromJson(e)).toList());
 
-    }catch(e){
+    } catch (e) {
       criptoPriceList = [];
-    }finally{
+    } finally {
       isLoading = false;
     }
   }
