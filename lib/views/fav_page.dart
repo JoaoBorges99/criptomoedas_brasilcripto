@@ -1,5 +1,6 @@
 import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
+import 'package:criptomoedas_brasilcripto/views/cripto_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -95,7 +96,14 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
               return PersonWidgets.criptoCard(
                 cripto: widget.mainController.favListItens[index],
                 adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CriptoDetailsPage(cripto: widget.mainController.favListItens[index],),
+                    ),
+                  );
+                },
               );
             },
           ),

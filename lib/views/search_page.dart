@@ -1,5 +1,6 @@
 import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
+import 'package:criptomoedas_brasilcripto/views/cripto_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -72,7 +73,14 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
                             builder: (_) => PersonWidgets.criptoCard(
                               cripto: widget.mainController.criptoPesquisada[index],
                               adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CriptoDetailsPage(cripto: widget.mainController.criptoPesquisada[index],),
+                                  ),
+                                );
+                              },
                             ),
                           );
                         },
