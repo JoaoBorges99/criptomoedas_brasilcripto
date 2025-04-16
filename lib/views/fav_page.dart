@@ -22,9 +22,6 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
     super.build(context);
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_rounded)),
-        ],
         leading: PopupMenuButton(
           itemBuilder: (context) {
             return [

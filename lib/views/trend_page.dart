@@ -66,65 +66,75 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                         controller: PageController(),
                         itemCount: widget.mainController.criptoCurrencyTrendList.sublist(10, 13).length,
                         itemBuilder: (context, index) {
-                          return Card(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.primaries[index],
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    right: 0,
-                                    child: Image.network(
-                                      // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
-                                      'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/128/${widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].id.toLowerCase()}.png',
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Image.asset(
-                                          'assets/cripto.png',
-                                          fit: BoxFit.cover,
-                                        );
-                                      },
-                                      width: 150,
-                                      height: 150,
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CriptoDetailsPage(cripto: widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index],),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.primaries[index],
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      right: 0,
+                                      child: Image.network(
+                                        'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/128/${widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].id.toLowerCase()}.png',
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Image.asset(
+                                            'assets/cripto.png',
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                        width: 150,
+                                        height: 150,
+                                      ),
                                     ),
-                                  ),
-                      
-                                  // Texto principal
-                                  Positioned(
-                                    left: 20,
-                                    top: 40,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].name,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
+                                                  
+                                    // Texto principal
+                                    Positioned(
+                                      left: 20,
+                                      top: 40,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].name,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle: FontStyle.italic
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "Super Cripto",
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
+                                          Text(
+                                            "Super Cripto",
+                                            style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          "Maior preço",
-                                          style: TextStyle(
-                                            fontSize: 32,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w800,
+                                          Text(
+                                            "Maior preço",
+                                            style: TextStyle(
+                                              fontSize: 32,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w800,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           );
