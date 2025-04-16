@@ -122,7 +122,7 @@ abstract class MainStoreBase with Store {
             }
           }
         }
-        criptoCurrencyTrendList.addAll(novasAdicoes);
+        criptoCurrencyTrendList.addAll(novasAdicoes.where((newAdd) => !criptoCurrencyTrendList.any((e) => e.id == newAdd.id)).toList());
       }
     } catch (e) {
       print('Erro ao recuperar favoritos: $e');
