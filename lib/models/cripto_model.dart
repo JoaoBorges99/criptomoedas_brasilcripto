@@ -32,4 +32,13 @@ abstract class CriptoCurrencyBase with Store {
     price = json['priceUsd'].toString();
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'symbol': symbol,
+      'favorito': favorito,
+    };
+  }
+
 }

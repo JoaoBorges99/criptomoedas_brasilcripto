@@ -20,6 +20,7 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
+    mainController.recuperarFavoritos();
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -31,7 +32,7 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
           controller: _tabController,
           children: [
             TrendPage(mainController: mainController,),
-            SearchPage(),
+            SearchPage(mainController: mainController,),
             FavoritesPage(mainController: mainController,),
           ],
         ),

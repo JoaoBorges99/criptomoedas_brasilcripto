@@ -41,6 +41,38 @@ mixin _$MainStore on MainStoreBase, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: 'MainStoreBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
+  late final _$isLoadingSearchAtom =
+      Atom(name: 'MainStoreBase.isLoadingSearch', context: context);
+
+  @override
+  bool get isLoadingSearch {
+    _$isLoadingSearchAtom.reportRead();
+    return super.isLoadingSearch;
+  }
+
+  @override
+  set isLoadingSearch(bool value) {
+    _$isLoadingSearchAtom.reportWrite(value, super.isLoadingSearch, () {
+      super.isLoadingSearch = value;
+    });
+  }
+
   late final _$criptoCurrencyTrendListAtom =
       Atom(name: 'MainStoreBase.criptoCurrencyTrendList', context: context);
 
@@ -58,29 +90,13 @@ mixin _$MainStore on MainStoreBase, Store {
     });
   }
 
-  late final _$criptoCurrencySearchListAtom =
-      Atom(name: 'MainStoreBase.criptoCurrencySearchList', context: context);
-
-  @override
-  ObservableList<CriptoCurrency> get criptoCurrencySearchList {
-    _$criptoCurrencySearchListAtom.reportRead();
-    return super.criptoCurrencySearchList;
-  }
-
-  @override
-  set criptoCurrencySearchList(ObservableList<CriptoCurrency> value) {
-    _$criptoCurrencySearchListAtom
-        .reportWrite(value, super.criptoCurrencySearchList, () {
-      super.criptoCurrencySearchList = value;
-    });
-  }
-
   @override
   String toString() {
     return '''
 valorPesquisado: ${valorPesquisado},
+isLoading: ${isLoading},
+isLoadingSearch: ${isLoadingSearch},
 criptoCurrencyTrendList: ${criptoCurrencyTrendList},
-criptoCurrencySearchList: ${criptoCurrencySearchList},
 favListItens: ${favListItens},
 criptoPesquisada: ${criptoPesquisada}
     ''';

@@ -1,6 +1,8 @@
 import 'package:criptomoedas_brasilcripto/global/settings.dart';
 import 'package:criptomoedas_brasilcripto/models/cripto_model.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 part 'main_store.g.dart';
 
 class MainStore = MainStoreBase with _$MainStore;
@@ -10,21 +12,21 @@ abstract class MainStoreBase with Store {
   String valorPesquisado = '';
 
   @observable
-  ObservableList<CriptoCurrency> criptoCurrencyTrendList = ObservableList<CriptoCurrency>.of([
-    CriptoCurrency(id: '1', name: 'Bitcoin', symbol: 'BTC', price: '50000', favorito: true),
-    CriptoCurrency(id: '2', name: 'Ethereum', symbol: 'ETH', price: '4000'),
-    CriptoCurrency(id: '3', name: 'Ripple', symbol: 'XRP', price: '1'),
-    CriptoCurrency(id: '4', name: 'Litecoin', symbol: 'LTC', price: '200'),
-  ]);
+  bool isLoading = false;
 
   @observable
-  ObservableList<CriptoCurrency> criptoCurrencySearchList = ObservableList<CriptoCurrency>.of([]);
+  bool isLoadingSearch = false;
+
+  @observable
+  ObservableList<CriptoCurrency> criptoCurrencyTrendList = ObservableList<CriptoCurrency>.of([]);
 
   @computed
-  ObservableList<CriptoCurrency> get favListItens => criptoCurrencyTrendList.where((element) => element.favorito == true).toList().asObservable();
+  ObservableList<CriptoCurrency> get favListItens {
+    return criptoCurrencyTrendList.where((element) => element.favorito == true).toList().asObservable();
+  }
 
   @computed
-  ObservableList<CriptoCurrency> get criptoPesquisada => criptoCurrencySearchList.where(
+  ObservableList<CriptoCurrency> get criptoPesquisada => criptoCurrencyTrendList.where(
     (item)=> item.name.toLowerCase().contains(valorPesquisado.toLowerCase()) || item.symbol.toLowerCase().contains(valorPesquisado.toLowerCase()) ||item.id.toLowerCase().contains(valorPesquisado.toLowerCase())
   ).toList().asObservable();
 
@@ -41,18 +43,81 @@ abstract class MainStoreBase with Store {
   }
   
   Future<void> getAllTrendCripto ({required ObservableList<CriptoCurrency> newList}) async {
-    newList.clear();
-    
-    List dados = await Settings.getRequest(editUrl: '&limit=13');
-    newList.addAll(dados.map((e)=> CriptoCurrency.fromJson(e)).toList().asObservable());
+    try{
+      isLoading = true;
 
-    validarItensFavoritos(list: newList);
+      List dados = await Settings.getRequest(editUrl: '&limit=50');
+      newList.addAll(dados.map((e)=> CriptoCurrency.fromJson(e)).toList().asObservable());
+
+      validarItensFavoritos(list: newList);
+    }catch(e){
+      newList.clear();
+    }finally{
+      isLoading = false;
+    }
 
   }
 
+  Future<void> searchNewCripto() async {
+    try{
+      isLoadingSearch = true;
+
+      List dados = await Settings.getRequest(editUrl: '&search=$valorPesquisado');
+      if (dados.isNotEmpty) {
+        List<CriptoCurrency> novaLista = dados.map((e) => CriptoCurrency.fromJson(e)).toList();
+
+        for(CriptoCurrency novoitem in novaLista){
+          final bool isItemExist = criptoCurrencyTrendList.where((e) => e.id == novoitem.id).isEmpty;
+          if(isItemExist){
+            criptoCurrencyTrendList.add(novoitem);
+          } 
+        }
+      }
+    }catch(e){
+      return;
+    }finally{
+      isLoadingSearch = false;
+    }
+  }
+  
   void limparItensFav(){
     for (CriptoCurrency item in favListItens){
       item.favorito = false;
+    }
+  }
+
+  // Função para salvar a lista de favoritos
+  Future<void> salvarFavoritos() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      // Converte a lista de favoritos em JSON
+      List<String> favoritosJson = favListItens.map((item) => jsonEncode(item.toJson())).toList();
+      // Salva no SharedPreferences
+      await prefs.setStringList('favoritos', favoritosJson);
+    } catch (e) {
+      print('Erro ao salvar favoritos: $e');
+    }
+  }
+
+  // Função para recuperar a lista de favoritos
+  Future<void> recuperarFavoritos() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // Recupera a lista de favoritos em JSON
+      List<String>? favoritosJson = prefs.getStringList('favoritos');
+      if (favoritosJson != null) {
+        // Converte de JSON para objetos CriptoCurrency
+        List<CriptoCurrency> favoritos = favoritosJson.map((item) => CriptoCurrency.fromJson(jsonDecode(item))).toList();
+        // Atualiza a lista principal com os favoritos recuperados
+        for (CriptoCurrency item in criptoCurrencyTrendList) {
+          if (favoritos.any((fav) => fav.id == item.id)) {
+            item.favorito = true;
+          }
+        }
+      }
+    } catch (e) {
+      print('Erro ao recuperar favoritos: $e');
     }
   }
 

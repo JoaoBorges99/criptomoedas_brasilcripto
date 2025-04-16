@@ -17,6 +17,9 @@ class _FavoritesPageState extends State<FavoritesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.filter_alt_rounded)),
+        ],
         leading: PopupMenuButton(
           itemBuilder: (context) {
             return [
