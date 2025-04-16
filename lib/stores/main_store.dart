@@ -80,7 +80,9 @@ abstract class MainStoreBase with Store {
     }
   }
   
-  void limparItensFav(){
+  void limparItensFav() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     for (CriptoCurrency item in favListItens){
       item.favorito = false;
     }
