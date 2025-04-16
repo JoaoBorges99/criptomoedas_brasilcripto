@@ -20,7 +20,9 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
-    mainController.recuperarFavoritos();
+    mainController.getAllTrendCripto(newList: mainController.criptoCurrencyTrendList).then((value){
+      mainController.recuperarFavoritos();
+    });
     _tabController = TabController(length: 3, vsync: this);
   }
 

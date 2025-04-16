@@ -30,6 +30,7 @@ abstract class CriptoCurrencyBase with Store {
     name = json['name'] ?? '';
     symbol = json['symbol'] ?? '';
     price = json['priceUsd'].toString();
+    favorito = json['favorito'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +39,7 @@ abstract class CriptoCurrencyBase with Store {
       'name': name,
       'symbol': symbol,
       'favorito': favorito,
+      'priceUsd': price,
     };
   }
 

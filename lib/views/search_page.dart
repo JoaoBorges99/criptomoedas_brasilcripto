@@ -11,7 +11,10 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMixin {
+  
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -21,6 +24,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SafeArea(
         child: Observer(
@@ -67,6 +71,7 @@ class _SearchPageState extends State<SearchPage> {
                           return Observer(
                             builder: (_) => PersonWidgets.criptoCard(
                               cripto: widget.mainController.criptoPesquisada[index],
+                              adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
                               onTap: () {},
                             ),
                           );

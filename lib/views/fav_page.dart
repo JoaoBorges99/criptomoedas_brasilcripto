@@ -12,9 +12,14 @@ class FavoritesPage extends StatefulWidget {
   State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _FavoritesPageState extends State<FavoritesPage> {
+class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveClientMixin {
+  
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -92,6 +97,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             itemBuilder: (context, index) {
               return PersonWidgets.criptoCard(
                 cripto: widget.mainController.favListItens[index],
+                adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
                 onTap: () {},
               );
             },

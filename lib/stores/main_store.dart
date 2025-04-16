@@ -93,7 +93,7 @@ abstract class MainStoreBase with Store {
       prefs.clear();
       // Converte a lista de favoritos em JSON
       List<String> favoritosJson = favListItens.map((item) => jsonEncode(item.toJson())).toList();
-      // Salva no SharedPreferences
+
       await prefs.setStringList('favoritos', favoritosJson);
     } catch (e) {
       print('Erro ao salvar favoritos: $e');
@@ -103,18 +103,24 @@ abstract class MainStoreBase with Store {
   // Função para recuperar a lista de favoritos
   Future<void> recuperarFavoritos() async {
     try {
+      
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      // Recupera a lista de favoritos em JSON
       List<String>? favoritosJson = prefs.getStringList('favoritos');
+
       if (favoritosJson != null) {
-        // Converte de JSON para objetos CriptoCurrency
         List<CriptoCurrency> favoritos = favoritosJson.map((item) => CriptoCurrency.fromJson(jsonDecode(item))).toList();
-        // Atualiza a lista principal com os favoritos recuperados
+        Set<CriptoCurrency> novasAdicoes = {};
+        
         for (CriptoCurrency item in criptoCurrencyTrendList) {
-          if (favoritos.any((fav) => fav.id == item.id)) {
-            item.favorito = true;
+          for(CriptoCurrency favitem in favoritos){
+            if(favitem.id == item.id){
+              item.favorito = true; 
+            }else{
+              novasAdicoes.add(favitem);
+            }
           }
         }
+        criptoCurrencyTrendList.addAll(novasAdicoes);
       }
     } catch (e) {
       print('Erro ao recuperar favoritos: $e');

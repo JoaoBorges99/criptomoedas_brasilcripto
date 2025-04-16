@@ -18,12 +18,6 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {
-    widget.mainController.getAllTrendCripto(newList: widget.mainController.criptoCurrencyTrendList);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
@@ -92,6 +86,7 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                               return Observer(
                                 builder: (_) => PersonWidgets.criptoCard(
                                   cripto: e,
+                                  adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
                                   onTap: () {},
                                 ),
                               );
