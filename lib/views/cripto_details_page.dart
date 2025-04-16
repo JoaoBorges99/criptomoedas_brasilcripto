@@ -3,7 +3,6 @@ import 'package:criptomoedas_brasilcripto/stores/details_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:intl/intl.dart';
 
 
 class CriptoDetailsPage extends StatefulWidget {
@@ -16,7 +15,7 @@ class CriptoDetailsPage extends StatefulWidget {
 
 class _CriptoDetailsPageState extends State<CriptoDetailsPage> {
 
-  final store = DetailStore();
+  DetailStore store = DetailStore();
 
   @override
   void initState() {
@@ -44,60 +43,75 @@ class _CriptoDetailsPageState extends State<CriptoDetailsPage> {
           ),
         ],
       ),
-      body: Observer(
-        builder: (_) {
-          if (store.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Column(
+        children: [
 
-          final spots = store.criptoPriceList.asMap().entries.map((entry) {
-            final i = entry.key;
-            final e = entry.value;
-            return FlSpot(i.toDouble(), e.priceUsd);
-          }).toList();
+          ListTile(
+          ),
 
-          final labels = store.criptoPriceList.map((e) => DateFormat.Hm().format(e.date)).toList();
-
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: LineChart(
-              LineChartData(
-                // minY: store.criptoPriceList.map((e) => e.priceUsd).reduce((a, b) => a < b ? a : b) - 100,
-                // maxY: store.criptoPriceList.map((e) => e.priceUsd).reduce((a, b) => a > b ? a : b) + 100,
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(showTitles: true, interval: 100),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, _) {
-                        int index = value.toInt();
-                        if (index < 0 || index >= labels.length) return const SizedBox();
-                        return Text(labels[index], style: const TextStyle(fontSize: 10));
-                      },
-                      interval: 1,
+          Observer(
+            builder: (_) {
+              if (store.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+          
+              final spots = store.criptoPriceList.asMap().entries.map((entry) {
+                final index = entry.key.toDouble(); // Eixo X será o índice
+                final price = entry.value.price; // Eixo Y
+                return FlSpot(index, double.parse(price.toStringAsFixed(2)));
+              }).toList();
+          
+              // Mapeia índice -> data formatada
+              final labels = {
+                for (var i = 0; i < store.criptoPriceList.length; i++)
+                  i.toDouble(): store.criptoPriceList[i].formattedDate,
+              };
+          
+              return Container(
+                height: 300,
+                padding: const EdgeInsets.all(16),
+                child: Card(
+                  child: LineChart(
+                    LineChartData(
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: spots,
+                          isCurved: true,
+                          color: Colors.green,
+                          dotData: FlDotData(show: false),
+                          belowBarData: BarAreaData(
+                            show: true,
+                            color: Colors.green.withValues(alpha: 0.2),
+                          ),
+                        ),
+                      ],
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 60,
+                            getTitlesWidget: (value, meta) {
+                              final text = labels[value];
+                              return Padding(
+                                padding: const EdgeInsets.only(top:10.0),
+                                child: Transform.rotate(
+                                  angle: -0.7,
+                                  child: Text(text ?? '', style: const TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      gridData: FlGridData(show: true),
+                      borderData: FlBorderData(show: true),
                     ),
                   ),
                 ),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: true,
-                    color: Colors.orange,
-                    dotData: FlDotData(show: false),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      color: Colors.orange.withValues(alpha: 0.2),
-                    ),
-                  ),
-                ],
-                gridData: FlGridData(show: true),
-                borderData: FlBorderData(show: true),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

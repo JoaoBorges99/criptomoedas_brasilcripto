@@ -18,7 +18,8 @@ abstract class DetailStoreBase with Store{
       isLoading = true;
 
       List dados = await Settings.getRequest(editUrl: '${Settings.urlApi}/${cripto.id}/history${Settings.apiKey}&interval=m30', novaUrl: true);
-      criptoPriceList = dados.map((e) => CriptoDetails.fromJson(e)).toList();
+      criptoPriceList.addAll(dados.map((e) => CriptoDetails.fromJson(e)).toList());
+
     }catch(e){
       criptoPriceList = [];
     }finally{
