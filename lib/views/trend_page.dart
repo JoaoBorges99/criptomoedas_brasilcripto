@@ -1,5 +1,6 @@
 import 'package:criptomoedas_brasilcripto/global/widgets_personalizados.dart';
 import 'package:criptomoedas_brasilcripto/stores/main_store.dart';
+import 'package:criptomoedas_brasilcripto/views/cripto_details.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -50,74 +51,76 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                         PointerDeviceKind.mouse,
                       },
                     ),
-                    child: PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      controller: PageController(),
-                      itemCount: widget.mainController.criptoCurrencyTrendList.sublist(10, 13).length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.primaries[index],
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  right: 0,
-                                  child: Image.network(
-                                    // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
-                                    'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/128/${widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].id.toLowerCase()}.png',
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.asset(
-                                        'assets/cripto.png',
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                    width: 150,
-                                    height: 150,
+                    child: Observer(
+                      builder: (_) => PageView.builder(
+                        scrollDirection: Axis.horizontal,
+                        controller: PageController(),
+                        itemCount: widget.mainController.criptoCurrencyTrendList.sublist(10, 13).length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.primaries[index],
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    right: 0,
+                                    child: Image.network(
+                                      // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+                                      'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/128/${widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].id.toLowerCase()}.png',
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Image.asset(
+                                          'assets/cripto.png',
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                      width: 150,
+                                      height: 150,
+                                    ),
                                   ),
-                                ),
-
-                                // Texto principal
-                                Positioned(
-                                  left: 20,
-                                  top: 40,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].name,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
+                      
+                                  // Texto principal
+                                  Positioned(
+                                    left: 20,
+                                    top: 40,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          widget.mainController.criptoCurrencyTrendList.sublist(10, 13)[index].name,
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        "Super Cripto",
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                        Text(
+                                          "Super Cripto",
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        "Hightest Price",
-                                        style: TextStyle(
-                                          fontSize: 32,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w800,
+                                        Text(
+                                          "Hightest Price",
+                                          style: TextStyle(
+                                            fontSize: 32,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -140,7 +143,14 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                                 builder: (_) => PersonWidgets.criptoCard(
                                   cripto: e,
                                   adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CriptoDetails(cripto: e,),
+                                      ),
+                                    );
+                                  },
                                 ),
                               );
                             }).take(10).toList(),
