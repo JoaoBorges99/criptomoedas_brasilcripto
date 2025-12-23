@@ -45,11 +45,13 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
                 ),
               ],
             ),
-            Text(
-              '${widget.mainController.favListItens.length} Cryptos salvas',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12
+            Observer(
+              builder: (_) => Text(
+                '${widget.mainController.favListItens.length} Cryptos salvas',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12
+                ),
               ),
             )
           ],
@@ -146,17 +148,19 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
             child: ListView.builder(
               itemCount: widget.mainController.favListItens.length,
               itemBuilder: (context, index) {
-                return PersonWidgets.criptoCard(
-                  cripto: widget.mainController.favListItens[index],
-                  adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CriptoDetailsPage(cripto: widget.mainController.favListItens[index],),
-                      ),
-                    );
-                  },
+                return Observer(
+                  builder: (_) => PersonWidgets.criptoCard(
+                    cripto: widget.mainController.favListItens[index],
+                    adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CriptoDetailsPage(cripto: widget.mainController.favListItens[index],),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),

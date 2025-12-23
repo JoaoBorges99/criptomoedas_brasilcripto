@@ -91,18 +91,20 @@ class _TrendPageState extends State<TrendPage> with AutomaticKeepAliveClientMixi
                           itemCount: widget.mainController.criptoCurrencyTrendList.take(10).length,
                           itemBuilder: (context, index) {
                             CriptoCurrency topCriptos = widget.mainController.criptoCurrencyTrendList[index];
-                                return PersonWidgets.criptoCard(
-                                  cripto: topCriptos,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => CriptoDetailsPage(cripto: topCriptos,),
-                                      ),
-                                    );                                    
-                                  },
-                                  adicionarRemoverFavorito:
-                                      widget.mainController.salvarFavoritos,
+                                return Observer(
+                                  builder: (_) => PersonWidgets.criptoCard(
+                                    cripto: topCriptos,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CriptoDetailsPage(cripto: topCriptos,),
+                                        ),
+                                      );                                    
+                                    },
+                                    adicionarRemoverFavorito:
+                                        widget.mainController.salvarFavoritos,
+                                  ),
                                 );
                           },
                         ),
