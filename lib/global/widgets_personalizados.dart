@@ -29,9 +29,14 @@ class PersonWidgets {
                 // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
                 'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${cripto.id.toLowerCase()}.png',
                 errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/cripto.png',
-                    fit: BoxFit.cover,
+                  return Container(
+                    width: 50,
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/cripto.png',
+                      fit: BoxFit.fill
+                    ),
                   );
                 },
                 width: 50,
@@ -197,4 +202,121 @@ class PersonWidgets {
     );
   }
 
+
+  static Widget carrosselItem ({required CriptoCurrency cripto, required void Function()? onTap,}){
+    return InkWell(
+      borderRadius: BorderRadius.circular(15),
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.black87, Colors.black87],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha:0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Image.network(
+                      // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+                      'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${cripto.id.toLowerCase()}.png',
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 50,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'assets/cripto.png',
+                            fit: BoxFit.fill
+                          ),
+                        );
+                      },
+                      width: 50,
+                      height: 50,
+                    ),  
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cripto.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      cripto.symbol,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  'U\$D ${double.parse(cripto.price).toStringAsFixed(2).toString()}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      double.parse(cripto.changePercent24Hr).isNegative ?
+                      Icons.trending_down
+                      : Icons.trending_up,
+                      color: double.parse(cripto.changePercent24Hr).isNegative ?
+                      Colors.red
+                      : Colors.green,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      double.parse(cripto.changePercent24Hr).toStringAsFixed(2).toString(),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: double.parse(cripto.changePercent24Hr).isNegative ?
+                        Colors.red
+                        : Colors.green,      
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+      
+  }
 }

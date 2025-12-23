@@ -33,7 +33,6 @@ class MainApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFF121212),
           elevation: 0,
-          toolbarHeight: 35,
           centerTitle: true,
           iconTheme: IconThemeData(color: Color(0xFFF2F2F2)),
         ),

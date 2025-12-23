@@ -60,30 +60,53 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
                   Visibility(
                     visible: widget.mainController.criptoPesquisada.isNotEmpty,
                     replacement: Center(
-                      child: Text(
-                        'Não foi possivel encontar suas criptos!',
-                        style: TextStyle(fontSize: 16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search,
+                            color: Colors.grey[400],
+                            size: 40,
+                          ),
+                          Text(
+                            'Não foi possivel encontar suas criptos!',
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18
+                            ),
+                          ),
+                          Text(
+                            'Busque usando o nome ou descrição de uma cripto',
+                            style: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 15
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     child: Expanded(
-                      child: ListView.builder(
-                        itemCount: widget.mainController.criptoPesquisada.take(100).length,
-                        itemBuilder: (context, index) {
-                          return Observer(
-                            builder: (_) => PersonWidgets.criptoCard(
-                              cripto: widget.mainController.criptoPesquisada[index],
-                              adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CriptoDetailsPage(cripto: widget.mainController.criptoPesquisada[index],),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListView.builder(
+                          itemCount: widget.mainController.criptoPesquisada.take(100).length,
+                          itemBuilder: (context, index) {
+                            return Observer(
+                              builder: (_) => PersonWidgets.criptoCard(
+                                cripto: widget.mainController.criptoPesquisada[index],
+                                adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CriptoDetailsPage(cripto: widget.mainController.criptoPesquisada[index],),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

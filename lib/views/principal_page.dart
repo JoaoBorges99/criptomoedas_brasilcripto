@@ -40,8 +40,9 @@ class _PrincipalPageState extends State<PrincipalPage> with TickerProviderStateM
         ),
       ),
       bottomNavigationBar: Container(
+        height: 60,
         decoration: BoxDecoration(
-          color: Color(0xFF1C1C1E),
+          color: Color.fromARGB(255, 15, 23, 42),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
