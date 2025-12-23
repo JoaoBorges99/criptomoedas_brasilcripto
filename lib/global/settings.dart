@@ -16,6 +16,7 @@ class Settings {
       }else{
         url = Uri.parse(urlApi+editUrl);
       }
+      print(url);
 
       final response = await http.get(url, headers: {'Authorization' : 'Bearer $apiKey'});
 

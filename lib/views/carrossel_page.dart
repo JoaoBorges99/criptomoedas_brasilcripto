@@ -29,7 +29,7 @@ class _CarrosselPageState extends State<CarrosselPage> {
             Icon(Icons.trending_up, color: Colors.orange[400], size: 24),
             const SizedBox(width: 8),
             const Text(
-              'Maiores Crescimentos',
+              'Oportunidades',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

@@ -20,7 +20,7 @@ abstract class DetailStoreBase with Store{
 
       // Faz uma requisição para obter o histórico de preços da criptomoeda
       List dados = await Settings.getRequest(
-        editUrl: '${Settings.urlApi}/${cripto.id}/history${Settings.apiKey}&interval=m30', 
+        editUrl: '${Settings.urlApi}assets/${cripto.id}/history?interval=m30', 
         novaUrl: true
       );
 
