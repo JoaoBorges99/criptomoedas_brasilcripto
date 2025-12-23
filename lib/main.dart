@@ -17,8 +17,6 @@ class MainApp extends StatelessWidget {
       home: PrincipalPage(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Color(0xFF0A84FF),
-        scaffoldBackgroundColor: Color(0xFF121212),
         textTheme: TextTheme(
           bodyLarge: TextStyle(color: Color(0xFFF2F2F2)),
           bodyMedium: TextStyle(color: Color(0xFF9E9E9E)),

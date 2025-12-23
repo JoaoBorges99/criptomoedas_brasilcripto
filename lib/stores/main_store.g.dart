@@ -12,21 +12,26 @@ mixin _$MainStore on MainStoreBase, Store {
   Computed<ObservableList<CriptoCurrency>>? _$favListItensComputed;
 
   @override
-  ObservableList<CriptoCurrency> get favListItens => (_$favListItensComputed ??=
-          Computed<ObservableList<CriptoCurrency>>(() => super.favListItens,
-              name: 'MainStoreBase.favListItens'))
-      .value;
+  ObservableList<CriptoCurrency> get favListItens =>
+      (_$favListItensComputed ??= Computed<ObservableList<CriptoCurrency>>(
+            () => super.favListItens,
+            name: 'MainStoreBase.favListItens',
+          ))
+          .value;
   Computed<ObservableList<CriptoCurrency>>? _$criptoPesquisadaComputed;
 
   @override
   ObservableList<CriptoCurrency> get criptoPesquisada =>
       (_$criptoPesquisadaComputed ??= Computed<ObservableList<CriptoCurrency>>(
-              () => super.criptoPesquisada,
-              name: 'MainStoreBase.criptoPesquisada'))
+            () => super.criptoPesquisada,
+            name: 'MainStoreBase.criptoPesquisada',
+          ))
           .value;
 
-  late final _$valorPesquisadoAtom =
-      Atom(name: 'MainStoreBase.valorPesquisado', context: context);
+  late final _$valorPesquisadoAtom = Atom(
+    name: 'MainStoreBase.valorPesquisado',
+    context: context,
+  );
 
   @override
   String get valorPesquisado {
@@ -41,8 +46,10 @@ mixin _$MainStore on MainStoreBase, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: 'MainStoreBase.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(
+    name: 'MainStoreBase.isLoading',
+    context: context,
+  );
 
   @override
   bool get isLoading {
@@ -57,8 +64,10 @@ mixin _$MainStore on MainStoreBase, Store {
     });
   }
 
-  late final _$isLoadingSearchAtom =
-      Atom(name: 'MainStoreBase.isLoadingSearch', context: context);
+  late final _$isLoadingSearchAtom = Atom(
+    name: 'MainStoreBase.isLoadingSearch',
+    context: context,
+  );
 
   @override
   bool get isLoadingSearch {
@@ -73,8 +82,10 @@ mixin _$MainStore on MainStoreBase, Store {
     });
   }
 
-  late final _$criptoCurrencyTrendListAtom =
-      Atom(name: 'MainStoreBase.criptoCurrencyTrendList', context: context);
+  late final _$criptoCurrencyTrendListAtom = Atom(
+    name: 'MainStoreBase.criptoCurrencyTrendList',
+    context: context,
+  );
 
   @override
   ObservableList<CriptoCurrency> get criptoCurrencyTrendList {
@@ -84,10 +95,13 @@ mixin _$MainStore on MainStoreBase, Store {
 
   @override
   set criptoCurrencyTrendList(ObservableList<CriptoCurrency> value) {
-    _$criptoCurrencyTrendListAtom
-        .reportWrite(value, super.criptoCurrencyTrendList, () {
-      super.criptoCurrencyTrendList = value;
-    });
+    _$criptoCurrencyTrendListAtom.reportWrite(
+      value,
+      super.criptoCurrencyTrendList,
+      () {
+        super.criptoCurrencyTrendList = value;
+      },
+    );
   }
 
   @override

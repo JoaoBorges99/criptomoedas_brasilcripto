@@ -55,7 +55,7 @@ abstract class MainStoreBase with Store {
       isLoading = true;
 
       // Faz uma requisição para obter as criptomoedas em alta
-      List dados = await Settings.getRequest(editUrl: '&limit=50');
+      List dados = await Settings.getRequest(editUrl: 'assets?limit=50');
       
       // Converte os dados recebidos em objetos do tipo CriptoCurrency e adiciona à lista
       newList.addAll(dados.map((e) => CriptoCurrency.fromJson(e)).toList().asObservable());
@@ -74,7 +74,7 @@ abstract class MainStoreBase with Store {
       isLoadingSearch = true;
 
       // Faz uma requisição para buscar criptomoedas pelo valor pesquisado
-      List dados = await Settings.getRequest(editUrl: '&search=$valorPesquisado');
+      List dados = await Settings.getRequest(editUrl: '?search=$valorPesquisado');
       if (dados.isNotEmpty) {
         List<CriptoCurrency> novaLista = dados.map((e) => CriptoCurrency.fromJson(e)).toList();
 

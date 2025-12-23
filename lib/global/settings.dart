@@ -14,10 +14,10 @@ class Settings {
       if(novaUrl){
         url = Uri.parse(editUrl);
       }else{
-        url = Uri.parse(urlApi+apiKey+editUrl);
+        url = Uri.parse(urlApi+editUrl);
       }
 
-      final response = await http.get(url);
+      final response = await http.get(url, headers: {'Authorization' : 'Bearer $apiKey'});
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);

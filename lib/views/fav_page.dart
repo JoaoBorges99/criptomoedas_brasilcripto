@@ -79,33 +79,65 @@ class _FavoritesPageState extends State<FavoritesPage> with AutomaticKeepAliveCl
           },
         ),
       ),
-      body: Observer(
-        builder: (_) => Visibility(
-          visible: widget.mainController.favListItens.isNotEmpty,
-          replacement: Center(
-            child: Text(
-              'Não há favoritos!',
-              style: TextStyle(
-                fontSize: 16,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 15, 23, 42),
+              Color.fromARGB(255, 42, 44, 199),
+              Color.fromARGB(255, 28, 35, 135),
+              Color.fromARGB(255, 15, 23, 42),
+            ]
+          )  
+        ),        
+        child: Observer(
+          builder: (_) => Visibility(
+            visible: widget.mainController.favListItens.isNotEmpty,
+            replacement: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.star_border,
+                    color: Colors.grey[400],
+                    size: 40,
+                  ),
+                  Text(
+                    'Nenhuma favorita ainda',
+                    style: TextStyle(
+                      color: Colors.grey[300],
+                      fontSize: 18
+                    ),
+                  ),
+                  Text(
+                    'Adicione suas cryptos favoritas',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 15
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
-          child: ListView.builder(
-            itemCount: widget.mainController.favListItens.length,
-            itemBuilder: (context, index) {
-              return PersonWidgets.criptoCard(
-                cripto: widget.mainController.favListItens[index],
-                adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CriptoDetailsPage(cripto: widget.mainController.favListItens[index],),
-                    ),
-                  );
-                },
-              );
-            },
+            child: ListView.builder(
+              itemCount: widget.mainController.favListItens.length,
+              itemBuilder: (context, index) {
+                return PersonWidgets.criptoCard(
+                  cripto: widget.mainController.favListItens[index],
+                  adicionarRemoverFavorito: widget.mainController.salvarFavoritos,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CriptoDetailsPage(cripto: widget.mainController.favListItens[index],),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

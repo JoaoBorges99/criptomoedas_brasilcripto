@@ -5,35 +5,132 @@ import 'package:intl/intl.dart';
 class PersonWidgets {
 
   static Widget criptoCard ({required CriptoCurrency cripto, required void Function()? onTap, required void Function()? adicionarRemoverFavorito}) {
-    return Card(
-      child: ListTile(
-        leading: Image.network(
-          // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
-          'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${cripto.id.toLowerCase()}.png',
-          errorBuilder: (context, error, stackTrace) {
-            return Image.asset(
-              'assets/cripto.png',
-              fit: BoxFit.cover,
-            );
-          },
-          width: 50,
-          height: 50,
-        ),
-        title: Text(cripto.name),
-        subtitle: Text(cripto.price.toString()),
-        trailing: IconButton(
-          tooltip: 'Adicionar aos favoritos',
-          onPressed: (){
-            adicionarRemoverFavorito!();
-            cripto.adicionarRemoverFavorito();
-          }, 
-          icon: Visibility(
-            visible: cripto.favorito,
-            replacement: Icon(Icons.star_border_outlined,),
-            child: Icon(Icons.star, color: Colors.yellow,),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.white.withValues(alpha:0.1),
+            width: 1,
           ),
         ),
+      ),      
+      child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(15),
+        child: Padding(
+          padding: EdgeInsetsGeometry.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.network(
+                // 'https://assets.coingecko.com/coins/images/1/large/${cripto.name.toLowerCase()}.png',
+                'https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/32/${cripto.id.toLowerCase()}.png',
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/cripto.png',
+                    fit: BoxFit.cover,
+                  );
+                },
+                width: 50,
+                height: 50,
+              ),  
+              
+              const SizedBox(width: 10,),
+          
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 5,
+                  children: [
+                    Text(
+                      cripto.name,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Visibility(
+                      visible: cripto.symbol.isNotEmpty,
+                      child: SelectableText(
+                        cripto.symbol,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  spacing: 5,
+                  children: [
+                    Text(
+                      'U\$D ${double.parse(cripto.price).toStringAsFixed(2).toString()}',
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Visibility(
+                      visible: cripto.changePercent24Hr.isNotEmpty,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(
+                            double.parse(cripto.changePercent24Hr).isNegative ?
+                            Icons.trending_down
+                            : Icons.trending_up,
+                            color: double.parse(cripto.changePercent24Hr).isNegative ?
+                            Colors.red
+                            : Colors.green,
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                            double.parse(cripto.changePercent24Hr).toStringAsFixed(2).toString(),
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: double.parse(cripto.changePercent24Hr).isNegative ?
+                              Colors.red
+                              : Colors.green,                              
+                            ),                            
+                          )
+                        ]
+                      ),
+                    )
+                  ],
+                ),
+              ),              
+          
+              IconButton(
+                tooltip: 'Adicionar aos favoritos',
+                onPressed: (){
+                  adicionarRemoverFavorito!();
+                  cripto.adicionarRemoverFavorito();
+                }, 
+                icon: Visibility(
+                  visible: cripto.favorito,
+                  replacement: Icon(Icons.star_border_outlined,),
+                  child: Icon(Icons.star, color: Colors.yellow,),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
